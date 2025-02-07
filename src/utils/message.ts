@@ -1,4 +1,4 @@
-import { BaseMessageOptions, CommandInteraction, Message } from "discord.js";
+import { BaseMessageOptions, ChatInputCommandInteraction, Message } from "discord.js";
 
 export interface MessageCreationOptionBase {
     timeLimit?: number;
@@ -14,7 +14,7 @@ export interface MessageCreationOptionBase {
  * @returns Fetched Message Object after being sent
  */
 export async function sendMessage(
-    interaction: CommandInteraction,
+    interaction: ChatInputCommandInteraction,
     contents: BaseMessageOptions,
     options?: MessageCreationOptionBase
 ): Promise<Message> {
@@ -48,7 +48,7 @@ export async function sendMessage(
  * @param options Options object for send method and timelimit
  */
 export async function sendTimedChannelMessage(
-    interaction: CommandInteraction,
+    interaction: ChatInputCommandInteraction,
     contents: BaseMessageOptions,
     options?: MessageCreationOptionBase
 ): Promise<void> {

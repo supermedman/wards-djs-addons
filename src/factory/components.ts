@@ -1,4 +1,4 @@
-import { ActionRowBuilder, APIActionRowComponent, APIButtonComponent, BaseMessageOptions, ButtonBuilder, ButtonStyle, CollectedMessageInteraction, CommandInteraction, ComponentType, Message } from "discord.js";
+import { ActionRowBuilder, APIActionRowComponent, APIButtonComponent, BaseMessageOptions, ButtonBuilder, ButtonStyle, CollectedMessageInteraction, ChatInputCommandInteraction, ComponentType, Message } from "discord.js";
 import { MessageCreationOptionBase, sendMessage } from "../utils/message.js";
 
 
@@ -19,7 +19,7 @@ export interface ComponentCollectorOptionBase extends MessageCreationOptionBase 
  * @returns All component collectors now attached to the given anchorMsg
  */
 function createComponentCollector(
-    interaction: CommandInteraction,
+    interaction: ChatInputCommandInteraction,
     anchorMsg: Message,
     options?: ComponentCollectorOptionBase
 ) {
@@ -71,7 +71,7 @@ function createComponentCollector(
  * @returns Destructable `{ anchorMsg: Message, buttons: ButtonCollector, strings: StringSelectCollector | undefined }`
  */
 export async function spawnCollector(
-    interaction: CommandInteraction,
+    interaction: ChatInputCommandInteraction,
     contents: BaseMessageOptions,
     options?: ComponentCollectorOptionBase
 ) {
