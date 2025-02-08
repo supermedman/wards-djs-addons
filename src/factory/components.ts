@@ -126,7 +126,7 @@ export function spawnUserChoiceRow(id: string, options?: UserChoiceButtonOptions
         }),
         new ButtonBuilder({
             custom_id: `cancel-${id}`,
-            style: options?.cancel?.style ?? ButtonStyle.Success,
+            style: options?.cancel?.style ?? ButtonStyle.Danger,
             label: `Cancel ${options?.cancel?.labelText ?? ""}`
         })
     ).toJSON();

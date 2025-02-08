@@ -1,8 +1,8 @@
 import type { Options } from "tsup";
 import { defineConfig } from "tsup";
 
-export function createTsupConfig({
-    entry = ['src/index.ts'],
+function createTsupConfig({
+    entry = ['./src/index.ts'],
     external = [],
     noExternal = [],
     platform = 'node',
@@ -48,3 +48,5 @@ export function createTsupConfig({
         outDir,
     });
 }
+
+export default createTsupConfig();

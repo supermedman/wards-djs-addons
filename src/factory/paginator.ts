@@ -121,6 +121,8 @@ export class Paginator {
                 this.finalPage = this.indexedContent['embeds']!.length;
                 break;
         }
+
+        this.finalPage = this.finalPage - 1;
     }
 
     /**
@@ -175,7 +177,7 @@ export class Paginator {
         if (this.indexedContent['files'])
             this.activePage['files'] = [this.indexedContent['files'][this.currentPage]];
         if (this.indexedRows['components'])
-            this.activeRows['components'] = [this.controlRow, ...this.indexedRows['components'][this.currentPage]];
+            this.activeRows['components'] = this.indexedRows['components'][this.currentPage];
 
         return this.activePage;
     }
@@ -186,7 +188,7 @@ export class Paginator {
      * The returned object is some form of the `BaseMessageOptions` type based on the content loaded into this Paginator
      */
     get page() {
-        return { ...this._updateActivePage(), components: this.activeRows['components']! };
+        return { ...this._updateActivePage(), components: [this.controlRow, ...this.activeRows['components'] ?? []] };
     }
 
     /**
