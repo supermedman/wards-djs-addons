@@ -3,13 +3,13 @@ import { handleCatchDelete } from "../utils/message.js";
 import { APIActionRowComponent, APIMessageActionRowComponent, BaseMessageOptions, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, ComponentType, InteractionCollector, Message, StringSelectMenuInteraction } from "discord.js";
 import { Paginator, PagerDataOptionBase } from "./paginator.js";
 
-type MenuDataContentBase = Omit<BaseMessageOptions,
+export type MenuDataContentBase = Omit<BaseMessageOptions,
     'content'
     | 'allowedMentions'
     | 'components'
 > & { components: APIActionRowComponent<APIMessageActionRowComponent>[] };
 
-interface MenuManagerOptionBase extends ComponentCollectorOptionBase {
+export interface MenuManagerOptionBase extends ComponentCollectorOptionBase {
     contents: MenuDataContentBase
 }
 
@@ -24,7 +24,7 @@ interface ActiveMenuContext {
     pager?: string;
 }
 
-interface FrameForwardOptions {
+export interface FrameForwardOptions {
     usePager?: string | boolean;
 }
 
@@ -172,8 +172,11 @@ export class MenuManager {
         this._proccessActionList(options.contents.components);
 
         this.anchorMsg = anchorOutcome.anchorMsg;
+        if (this.anchorMsg) this.anchorMsg!;
         this.buttons = anchorOutcome.buttons;
+        if (this.buttons) this.buttons!;
         this.strings = anchorOutcome.strings;
+        if (this.strings) this.strings!;
 
         this.displayFrames.push(options.contents);
 

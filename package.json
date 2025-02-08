@@ -1,12 +1,16 @@
 {
   "name": "@th3ward3n/djs-menu",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Interactive Command based menu manager, simplify the UX process for any djs bot!",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.js"
+      },
+      "require": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
@@ -20,6 +24,7 @@
   ],
   "scripts": {
     "ts-compile": "tsc",
+    "build": "tsc --noEmit && tsup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -47,6 +52,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.13.1",
+    "tsup": "^8.3.6",
     "typescript": "^5.7.3"
   }
 }

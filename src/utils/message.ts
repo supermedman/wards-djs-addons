@@ -1,4 +1,4 @@
-import { BaseMessageOptions, ChatInputCommandInteraction, Message } from "discord.js";
+import { BaseMessageOptions, CommandInteraction, Message } from "discord.js";
 
 export interface MessageCreationOptionBase {
     timeLimit?: number;
@@ -14,15 +14,18 @@ export interface MessageCreationOptionBase {
  * @returns Fetched Message Object after being sent
  */
 export async function sendMessage(
-    interaction: ChatInputCommandInteraction,
+    interaction: CommandInteraction,
     contents: BaseMessageOptions,
     options?: MessageCreationOptionBase
 ): Promise<Message> {
+    // TODO: [ISSUE] Look into managing changes made to `Client` instance by way of .d.ts mergers
     if (!options || !options.sendAs) {
         const c = interaction.client.channels.cache.get(interaction.channelId);
         if (!c || !c.isSendable()) throw new Error('Failed to send a message: ', { cause: `Channel with id ${(c) ? c['id'] : '0'} is not sendable` });
         return await c.send(contents);
     }
+    // let ensureOptions = (options) ? options : {};
+    // if (!ensureOptions.sendAs) ensureOptions.sendAs = "Reply";
 
     let response: Message<boolean>;
     switch (options.sendAs) {
@@ -48,7 +51,7 @@ export async function sendMessage(
  * @param options Options object for send method and timelimit
  */
 export async function sendTimedChannelMessage(
-    interaction: ChatInputCommandInteraction,
+    interaction: CommandInteraction,
     contents: BaseMessageOptions,
     options?: MessageCreationOptionBase
 ): Promise<void> {
