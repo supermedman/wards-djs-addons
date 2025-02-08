@@ -18,11 +18,14 @@ export async function sendMessage(
     contents: BaseMessageOptions,
     options?: MessageCreationOptionBase
 ): Promise<Message> {
+    // TODO: [ISSUE] Look into managing changes made to `Client` instance by way of .d.ts mergers
     if (!options || !options.sendAs) {
         const c = interaction.client.channels.cache.get(interaction.channelId);
         if (!c || !c.isSendable()) throw new Error('Failed to send a message: ', { cause: `Channel with id ${(c) ? c['id'] : '0'} is not sendable` });
         return await c.send(contents);
     }
+    // let ensureOptions = (options) ? options : {};
+    // if (!ensureOptions.sendAs) ensureOptions.sendAs = "Reply";
 
     let response: Message<boolean>;
     switch (options.sendAs) {
