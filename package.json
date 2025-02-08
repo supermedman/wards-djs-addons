@@ -1,6 +1,6 @@
 {
   "name": "@th3ward3n/djs-menu",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Interactive Command based menu manager, simplify the UX process for any djs bot!",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
