@@ -1,6 +1,6 @@
 {
   "name": "@th3ward3n/djs-menu",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Interactive Command based menu manager, simplify the UX process for any djs bot!",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,6 +25,8 @@
   "scripts": {
     "ts-compile": "tsc",
     "build": "tsc --noEmit && tsup",
+    "build:dry": "npm run build && npm pack --dry-run",
+    "build:public": "npm run build && npm publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
