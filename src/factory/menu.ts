@@ -221,6 +221,27 @@ export class MenuManager {
         return this.displayFrames.length;
     }
 
+    public debugOutput() {
+        console.log('==== ID Checks for Frame %d ====', this.displayFrames.length);
+        console.log('== NEXT Actions: ', ...this.nextFrameActions.at(-1) ?? []);
+        console.log('== BACK Actions: ', ...this.backFrameActions.at(-1) ?? []);
+        console.log('== CANCEL Actions: ', ...this.cancelFrameActions.at(-1) ?? []);
+
+        console.log('\n\n==== Current Active Context, Position Frame: %d ====', this.position);
+        console.log(this.activeContext[`${this.position - 1}`]);
+
+        if (this.checkCondition.hasContextPager()) {
+            console.log('\n\n==== Existing Paginators %d ====', Object.keys(this.pagers).length);
+
+            const logPager = (id: string, idx: number) => {
+                console.log('\n\n<=== Paginator %d, ID: %s ===>', idx, id);
+                this.pagers[id].debugOutput();
+            };
+
+            Object.keys(this.pagers).forEach(logPager);
+        }
+    }
+
     /**
      * This method handles determining the `Menu Frame Action` to take, given the `id` 
      * 

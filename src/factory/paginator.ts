@@ -1,5 +1,5 @@
 import { spawnBasePagingRow } from "./components.js";
-import { APIActionRowComponent, APIButtonComponent, APIMessageActionRowComponent, BaseMessageOptions, ButtonStyle } from "discord.js";
+import { APIActionRowComponent, APIButtonComponent, APIMessageActionRowComponent, APIStringSelectComponent, BaseMessageOptions, ButtonStyle, ComponentType } from "discord.js";
 
 
 export type PagerDataOptionBase = Omit<BaseMessageOptions,
@@ -47,6 +47,22 @@ export class Paginator {
         this.controlRow = controllerRow;
         this.loadPages(pagingData);
         this._updateActivePage();
+    }
+
+    public debugOutput() {
+        console.log('=== Pager Details ===');
+        console.log('== Current Page: %d', this.currentPage);
+        console.log('== Active Display: ', this.activePage);
+        console.log('== Last Page: %d', this.finalPage);
+        console.log('== Component Row: ');
+        const logCompIDs = (comp: APIButtonComponent, idx: number) => {
+            const hasId = (c: APIButtonComponent | APIStringSelectComponent) => {
+                return c.type === ComponentType.Button && c.style !== ButtonStyle.Premium && c.style !== ButtonStyle.Link;
+            };
+            if (hasId(comp)) console.log('> Component %d, ID: ', idx, comp.custom_id);
+        };
+        this.controlRow.components.forEach(logCompIDs);
+        console.log('== Page Data Length: %d', this.activePage.embeds?.length ?? this.activePage.files?.length ?? 0);
     }
 
     /**
@@ -177,7 +193,7 @@ export class Paginator {
         if (this.indexedContent['files'])
             this.activePage['files'] = [this.indexedContent['files'][this.currentPage]];
         if (this.indexedRows['components'])
-            this.activeRows['components'] = this.indexedRows['components'][this.currentPage];
+            this.activeRows['components'] = [this.indexedRows['components'][0][this.currentPage]];
 
         return this.activePage;
     }
